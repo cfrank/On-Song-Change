@@ -1,0 +1,44 @@
+#!/usr/bin/ruby
+
+#
+# A very simple Ruby script which alerts
+# me when a song changes in MPD.
+#
+# @Author: Mysall
+# @Date: March 8 (Women's day)
+# @Deps:
+#       Ruby
+#       libnotify
+#       ruby-gir_ffi
+#       mpd
+#
+
+# Allows Ruby GObject binding
+require 'gir_ffi'
+# Initiate Notify
+GirFFI.setup :Notify
+Notify.init("MPD-ON-SONG-CHANGE")
+# Include mpd-client-interface
+require 'ruby-mpd'
+# Setup ruby-mpd
+mpd = MPD.new '127.0.0.1', 6600
+mpd.connect
+# Get current song data
+song = mpd.current_song
+# From that get the following information
+# Artist, Song Name, Album
+artist = song.artist
+title = song.title
+album = song.album
+
+# Output the Infomation
+#
+# Artist Name
+# Song Title
+# Song Album
+Hello = Notify::Notification.new("<b>#{artist}</b>\n#{title}\n#{album}\n", "", "")
+Hello.show
+
+# Finally disconnect from MPD
+
+mpd.disconnect
