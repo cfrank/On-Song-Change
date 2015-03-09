@@ -15,16 +15,21 @@
 
 # Allows Ruby GObject binding
 require 'gir_ffi'
+
 # Initiate Notify
 GirFFI.setup :Notify
 Notify.init("MPD-ON-SONG-CHANGE")
+
 # Include mpd-client-interface
 require 'ruby-mpd'
+
 # Setup ruby-mpd
 mpd = MPD.new '127.0.0.1', 6600
 mpd.connect
+
 # Get current song data
 song = mpd.current_song
+
 # From that get the following information
 # Artist, Song Name, Album
 artist = song.artist
@@ -33,12 +38,11 @@ album = song.album
 
 # Output the Infomation
 #
-# Artist Name
+# Artist Name >>> BOLD
 # Song Title
 # Song Album
 Hello = Notify::Notification.new("<b>#{artist}</b>\n#{title}\n#{album}\n", "", "")
 Hello.show
 
 # Finally disconnect from MPD
-
 mpd.disconnect
