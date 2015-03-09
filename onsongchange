@@ -31,10 +31,9 @@ mpd.connect
 song = mpd.current_song
 
 # From that get the following information
-# Artist, Song Name, Album
-artist = song.artist
-title = song.title
-album = song.album
+artist 	= song.artist 	# Song artist
+title 	= song.title 	# Song title
+album 	= song.album 	# Song album
 
 # Output the Infomation
 #
